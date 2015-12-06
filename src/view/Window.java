@@ -34,7 +34,7 @@ public class Window extends JFrame {
 	public static final int NUM_INPUTS = 6;
 	public static final int NUM_HIDDEN = 3;
 	public static final int NUM_OUTPUTS = 1;
-	private Neural1H neuralNetHS;// = new Neural1H(NUM_INPUTS, NUM_HIDDEN, NUM_OUTPUTS);
+	private Neural1H neuralNetHS = new Neural1H(NUM_INPUTS, NUM_HIDDEN, NUM_OUTPUTS);
 
 	// private RNA neurona;
 
@@ -224,8 +224,10 @@ public class Window extends JFrame {
 					// float valorArrojado = neurona.testing(entradas);
 					ArrayList<Carta> jugada = jugador1.getJugada();
 					float[] inputs = new float[NUM_INPUTS];
-					for (int i = 0; i < NUM_INPUTS - 1; ++i)
+					for (int i = 0; i < jugada.size(); ++i)
 						inputs[i] = (float) (jugada.get(i).getValor() / 100.0);
+					for (int j = jugada.size(); j < NUM_INPUTS - 1; j++)
+							inputs[j] = 0.0f;
 					inputs[NUM_INPUTS - 1] = dealer.mostarCarta(0)[1];
 
 					float valorArrojado = neuralNetHS.recall(inputs)[0];
@@ -412,7 +414,7 @@ public class Window extends JFrame {
 		btnAprender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//neurona = new RNA();
-				neuralNetHS = new Neural1H(NUM_INPUTS, NUM_HIDDEN, NUM_OUTPUTS);
+				//neuralNetHS = new Neural1H(NUM_INPUTS, NUM_HIDDEN, NUM_OUTPUTS);
 
 				float[] inExample01 = { 0.07f, 0.03f, 0.05f, 0.02f, 0.0f , 0.08f };
 				float[] inExample02 = { 0.04f, 0.02f, 0.04f, 0.03f, 0.01f, 0.1f  };
